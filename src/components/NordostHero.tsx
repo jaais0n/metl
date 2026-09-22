@@ -39,11 +39,11 @@ export const NordostHero = ({ onBookCall }: NordostHeroProps) => {
         duration: 1.0,
       }, '-=0.6');
 
-      // Helper to trigger the color flash and orange transition
-      const playFlashEffect = () => {
+      // Helper to trigger the color flash and orange transition with a delay
+      const playFlashEffect = (delay = 0.5) => {
         if (!metlRef.current) return;
         gsap.killTweensOf(metlRef.current);
-        const thunderTl = gsap.timeline();
+        const thunderTl = gsap.timeline({ delay });
 
         thunderTl
           .set(metlRef.current, { color: '#090909' })
@@ -62,12 +62,12 @@ export const NordostHero = ({ onBookCall }: NordostHeroProps) => {
           });
       };
 
-      // 2. ScrollTrigger to play flash whenever user scrolls into this section
+      // 2. ScrollTrigger to play flash with delay whenever user scrolls into this section
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top 85%',
-        onEnter: () => playFlashEffect(),
-        onEnterBack: () => playFlashEffect(),
+        onEnter: () => playFlashEffect(0.6),
+        onEnterBack: () => playFlashEffect(0.4),
       });
     }, containerRef);
 

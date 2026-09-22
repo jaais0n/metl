@@ -12,6 +12,10 @@ This document tracks all changes, updates, installations, and modifications made
 ---
 
 ## 📝 Recent Changes & Updates
+ 
+### [2026-09-22] Delayed Thunder Flash on 'metl' Text
+- Added a timing delay (`delay: 0.6s` on enter, `0.4s` on re-enter) to the thunder color flash sequence in [`src/components/NordostHero.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHero.tsx).
+- Allows the headline text to settle into view in solid dark tone first before the lightning strobe strikes and settles into fluorescent orange (`#FF5500`).
 
 ### [2026-09-22] True Center Alignment for Header Navigation Capsule
 - Replaced flex spacing with absolute 50% center positioning (`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`) for the navigation pill (`Home`, `Services`, `Work`, `Explore`, `About`) in [`src/components/NordostHeader.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHeader.tsx), guaranteeing perfect geometric centering even when the header stretches to full width.
