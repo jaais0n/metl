@@ -133,10 +133,10 @@ export const NordostHero = ({ onBookCall }: NordostHeroProps) => {
         <div className="space-y-8 md:space-y-12">
           {/* Lede & Headline */}
           <div className="max-w-5xl space-y-6 md:space-y-8">
-            <div className="h-[100px] sm:h-[130px] md:h-[155px] lg:h-[185px] overflow-visible">
+            <div className="h-[105px] min-[390px]:h-[100px] sm:h-[130px] md:h-[155px] lg:h-[185px] overflow-visible">
               <h1
                 ref={headlineRef}
-                className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.08] text-[#090909]"
+                className="text-[26px] min-[390px]:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.12] sm:leading-[1.08] text-[#090909]"
               >
                 {/* Sharp solid fluorescent orange 'metl' stays fixed on the same line */}
                 <span

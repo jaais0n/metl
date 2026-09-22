@@ -53,29 +53,29 @@ export const NordostProjectModal = ({ projectId, onClose }: NordostProjectModalP
   const project = projectDetails[projectId] || projectDetails.perlinbio;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[#090909] text-[#F6F6F6] rounded-2xl border border-neutral-800 p-6 sm:p-10">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md animate-fade-in">
+      <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto overscroll-contain bg-[#090909] text-[#F6F6F6] rounded-2xl border border-neutral-800 p-5 sm:p-10 shadow-2xl">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="sticky top-0 float-right z-10 w-9 h-9 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center transition"
+          className="sticky top-0 float-right z-10 w-9 h-9 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center transition cursor-pointer"
           aria-label="Close modal"
         >
           ✕
         </button>
 
-        <div className="clear-both space-y-8">
-          <div className="space-y-3">
+        <div className="clear-both space-y-6 sm:space-y-8">
+          <div className="space-y-2 sm:space-y-3">
             <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">
               Case Study
             </span>
-            <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white">
+            <h2 className="text-2xl sm:text-5xl font-medium tracking-tight text-white">
               {project.title}
             </h2>
-            <p className="text-sm font-mono text-neutral-400">{project.subtitle}</p>
+            <p className="text-xs sm:text-sm font-mono text-neutral-400">{project.subtitle}</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-4 border-y border-neutral-800 font-mono text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 py-4 border-y border-neutral-800 font-mono text-xs">
             <div>
               <span className="text-neutral-500 block mb-1">CLIENT</span>
               <span className="text-white">{project.client}</span>
@@ -84,17 +84,17 @@ export const NordostProjectModal = ({ projectId, onClose }: NordostProjectModalP
               <span className="text-neutral-500 block mb-1">YEAR</span>
               <span className="text-white">{project.year}</span>
             </div>
-            <div>
+            <div className="col-span-2 sm:col-span-1">
               <span className="text-neutral-500 block mb-1">DISCIPLINES</span>
               <span className="text-white">{project.services.join(', ')}</span>
             </div>
           </div>
 
-          <p className="text-base sm:text-lg text-neutral-300 leading-relaxed max-w-2xl">
+          <p className="text-sm sm:text-lg text-neutral-300 leading-relaxed max-w-2xl">
             {project.description}
           </p>
 
-          <div className="space-y-6 pt-4">
+          <div className="space-y-4 sm:space-y-6 pt-2 sm:pt-4">
             {project.images.map((img, idx) => (
               <img
                 key={idx}
@@ -106,10 +106,10 @@ export const NordostProjectModal = ({ projectId, onClose }: NordostProjectModalP
           </div>
 
           <div className="pt-6 flex justify-between items-center border-t border-neutral-800">
-            <span className="font-mono text-xs text-neutral-500">Studio Nordost / Work</span>
+            <span className="font-mono text-xs text-neutral-500">metl / Work</span>
             <button
               onClick={onClose}
-              className="px-5 py-2 rounded-full bg-white text-black text-xs font-mono font-medium hover:opacity-90 transition"
+              className="px-5 py-2.5 rounded-full bg-white text-black text-xs font-mono font-medium hover:opacity-90 transition cursor-pointer"
             >
               Close Study
             </button>

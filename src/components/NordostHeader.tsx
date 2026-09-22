@@ -314,48 +314,98 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
           </div>
         </div>
 
-        {/* Mobile Dropdown Nav Menu */}
+        {/* Mobile Dropdown Nav Menu with Backdrop */}
         {mobileMenuOpen && (
-          <div 
-            className={`md:hidden mt-2 p-3 rounded-3xl shadow-2xl flex flex-col gap-1.5 animate-in fade-in slide-in-from-top-2 duration-200 ${
-              isDarkBackground
-                ? 'bg-white text-[#090909] border border-zinc-200'
-                : 'bg-[#09090b] text-white'
-            }`}
-          >
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`px-4 py-2.5 rounded-2xl text-sm font-medium transition-colors flex items-center justify-between ${
-                  isDarkBackground
-                    ? 'text-zinc-700 hover:text-black hover:bg-zinc-100'
-                    : 'text-zinc-300 hover:text-white hover:bg-zinc-900'
-                }`}
-              >
-                <span>{item.label}</span>
-                {item.href.startsWith('/') && <ArrowUpRight className="w-4 h-4 text-zinc-500" />}
-              </a>
-            ))}
+          <>
             <div 
-              className={`pt-2 border-t flex items-center justify-between px-2 ${
-                isDarkBackground ? 'border-zinc-200' : 'border-zinc-800/80'
+              className="fixed inset-0 bg-black/50 backdrop-blur-xs z-30 md:hidden pointer-events-auto animate-in fade-in duration-200"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+            <div 
+              className={`relative z-40 md:hidden mt-2 p-3 rounded-3xl shadow-2xl flex flex-col gap-1.5 animate-in fade-in slide-in-from-top-2 duration-200 pointer-events-auto ${
+                isDarkBackground
+                  ? 'bg-white text-[#090909] border border-zinc-200'
+                  : 'bg-[#09090b] text-white'
               }`}
             >
+              {navItems.map((item) => {
+                const active = isCurrentActive(item.href, item.isRoute);
+
+                if (item.isRoute) {
+                  return (
+                    <Link
+                      key={item.label}
+                      to={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`px-4 py-3 rounded-2xl text-sm font-medium transition-colors flex items-center justify-between min-h-[48px] active:scale-[0.99] ${
+                        active
+                          ? isDarkBackground
+                            ? 'bg-zinc-100 text-black font-semibold'
+                            : 'bg-zinc-800 text-white font-semibold'
+                          : isDarkBackground
+                            ? 'text-zinc-700 hover:text-black hover:bg-zinc-100'
+                            : 'text-zinc-300 hover:text-white hover:bg-zinc-900'
+                      }`}
+                    >
+                      <span>{item.label}</span>
+                      <ArrowUpRight className="w-4 h-4 text-zinc-500" />
+                    </Link>
+                  );
+                }
+
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-4 py-3 rounded-2xl text-sm font-medium transition-colors flex items-center justify-between min-h-[48px] active:scale-[0.99] ${
+                      isDarkBackground
+                        ? 'text-zinc-700 hover:text-black hover:bg-zinc-100'
+                        : 'text-zinc-300 hover:text-white hover:bg-zinc-900'
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    <ArrowUpRight className="w-4 h-4 text-zinc-500" />
+                  </a>
+                );
+              })}
+
+              {/* Mobile Drawer Book Call Action */}
               <button
-                onClick={handleCopyEmail}
-                className={`text-xs flex items-center gap-1.5 py-1 ${
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onBookCall?.();
+                }}
+                className={`mt-1 w-full py-3 px-4 rounded-2xl text-sm font-semibold flex items-center justify-center gap-2 min-h-[48px] transition active:scale-[0.98] ${
                   isDarkBackground
-                    ? 'text-zinc-600 hover:text-black'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-[#09090b] text-white hover:bg-zinc-800'
+                    : 'bg-[#e6f7ec] text-[#0a3821] hover:bg-[#d2f3dc]'
                 }`}
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : null}
-                <span>{copied ? 'hi@metl.studio copied' : 'hi@metl.studio'}</span>
+                <RingingPhoneIcon className="w-4 h-4" />
+                <span>Book Free Discovery Call</span>
               </button>
+
+              <div 
+                className={`pt-2 mt-1 border-t flex items-center justify-between px-2 ${
+                  isDarkBackground ? 'border-zinc-200' : 'border-zinc-800/80'
+                }`}
+              >
+                <button
+                  onClick={handleCopyEmail}
+                  className={`text-xs flex items-center gap-1.5 py-2 min-h-[40px] ${
+                    isDarkBackground
+                      ? 'text-zinc-600 hover:text-black'
+                      : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Mail className="w-3.5 h-3.5 text-zinc-400" />}
+                  <span>{copied ? 'hi@metl.studio copied' : 'hi@metl.studio'}</span>
+                </button>
+              </div>
             </div>
-          </div>
+          </>
         )}
 
         {/* Floating Cart Toast */}

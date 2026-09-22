@@ -11,7 +11,33 @@ This document tracks all changes, updates, installations, and modifications made
 
 ---
 
-## 📝 Recent Changes & Updates
+### [2026-09-22] Full Mobile Responsiveness & Touch Optimization
+- **Viewport & Overflow Lock**: Added `overflow-x-hidden` across the root layout and pages to eliminate any horizontal bounce or side-scrolling on mobile devices.
+- **Mobile Header & Navigation Drawer** ([`src/components/NordostHeader.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHeader.tsx)):
+  - Added tap-friendly touch targets (`min-h-[48px]`) with smooth active scaling (`active:scale-[0.99]`).
+  - Added dedicated full-width "Book Free Discovery Call" action directly inside the mobile dropdown drawer with animated ringing phone soundwaves.
+  - Added backdrop overlay (`fixed inset-0 bg-black/50 backdrop-blur-xs`) with tap-outside dismiss for one-handed mobile navigation.
+  - Adapted compact pill padding (`px-2 sm:px-6`) to prevent screen-edge clipping on narrow phone screens (320px–375px).
+- **Responsive Hero Typography** ([`src/components/NordostHero.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHero.tsx)):
+  - Calibrated headline scaling (`text-[26px] min-[390px]:text-3xl sm:text-5xl md:text-6xl lg:text-7xl`) and responsive container height (`h-[105px] min-[390px]:h-[100px] sm:h-[130px] md:h-[155px] lg:h-[185px]`) so text sits strictly within 2–3 lines on all phone sizes with zero vertical jumping of subsequent sections.
+- **Mobile Client Marquee** ([`src/components/NordostClientsMarquee.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostClientsMarquee.tsx)):
+  - Scaled logo gaps and marquee mask to look clean on touch screens.
+- **Mobile Cards & Spacing** ([`src/components/NordostWhyInvest.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostWhyInvest.tsx), [`src/components/NordostHowWeWork.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHowWeWork.tsx), [`src/components/NordostServicesAndWork.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostServicesAndWork.tsx)):
+  - Scaled card paddings (`p-5 sm:p-8`) and section vertical spacing for mobile screens.
+  - Added responsive service list tap targets (`min-h-[44px]`).
+  - Enabled mobile inline video playback (`playsInline`) for project mockups.
+- **Mobile Testimonials Controls** ([`src/components/NordostTestimonials.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostTestimonials.tsx)):
+  - Added touch-friendly Prev/Next quick buttons (`← / →`) alongside pagination dots.
+  - Responsive quote font sizing (`text-lg sm:text-2xl md:text-3xl`).
+- **Mobile CTA & Footer** ([`src/components/NordostCta.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostCta.tsx), [`src/components/NordostFooter.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostFooter.tsx)):
+  - Made CTA buttons full width on small mobile screens (`w-full sm:w-auto`).
+  - Expanded social and navigation link hitboxes (`min-h-[36px]`).
+- **iOS Safari Anti-Zoom & Modals** ([`src/components/NordostBookingModal.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostBookingModal.tsx), [`src/components/NordostProjectModal.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostProjectModal.tsx)):
+  - Upgraded form input font sizes to 16px (`text-base sm:text-sm`) preventing iOS Safari from triggering unwanted viewport auto-zooming on tap.
+  - Added `max-h-[88vh] overflow-y-auto overscroll-contain` for smooth modal scrolling on mobile devices with soft keyboards.
+- **Secondary Pages** ([`src/pages/ExplorePage.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/pages/ExplorePage.tsx), [`src/pages/AboutPage.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/pages/AboutPage.tsx)):
+  - Unified with `NordostHeader` and `NordostFooter`.
+  - Added mobile overflow protection for code previews, filter pill carousels, and sandbox tabs.
 
 ### [2026-09-22] Compact 6-Word Phrases (Strict Max 2–3 Lines on All Screens)
 - Shortened and punch-optimized all 4 rotating hero statements in [`src/components/NordostHero.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHero.tsx) to strictly 6–7 words (~41–47 chars):

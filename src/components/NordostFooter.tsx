@@ -76,7 +76,7 @@ export const NordostFooter = () => {
     <footer ref={footerRef} data-bg="dark" className="bg-[#090909] text-[#F6F6F6] pt-12 pb-6 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Info Bar */}
-        <div ref={topBarRef} className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-16 border-b border-neutral-800">
+        <div ref={topBarRef} className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-12 sm:pb-16 border-b border-neutral-800">
           {/* Live Vienna Time */}
           <div className="flex items-center gap-2 font-mono text-xs">
             <span className="text-neutral-400">Vienna</span>
@@ -90,28 +90,28 @@ export const NordostFooter = () => {
 
           {/* Nav Links */}
           <nav className="flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-xs text-neutral-400">
-            <div className="flex items-center gap-4">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-5">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition py-1 min-h-[36px] flex items-center">
                 LinkedIn
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition py-1 min-h-[36px] flex items-center">
                 YouTube
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition py-1 min-h-[36px] flex items-center">
                 Instagram
               </a>
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
+              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition py-1 min-h-[36px] flex items-center">
                 X
               </a>
             </div>
 
             <span className="hidden sm:inline text-neutral-700">/</span>
 
-            <div className="flex items-center gap-4">
-              <a href="#imprint" className="hover:text-white transition">
+            <div className="flex items-center gap-4 sm:gap-5">
+              <a href="#imprint" className="hover:text-white transition py-1 min-h-[36px] flex items-center">
                 Imprint
               </a>
-              <a href="#privacy" className="hover:text-white transition">
+              <a href="#privacy" className="hover:text-white transition py-1 min-h-[36px] flex items-center">
                 Privacy
               </a>
             </div>
@@ -122,7 +122,7 @@ export const NordostFooter = () => {
               <button
                 type="button"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="hover:text-white transition cursor-pointer"
+                className="hover:text-white transition cursor-pointer py-1 min-h-[36px] flex items-center"
               >
                 Back to top ↑
               </button>
