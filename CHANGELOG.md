@@ -9,7 +9,9 @@ This document tracks all changes, updates, installations, and modifications made
 - **Dependencies Installed**: Ran `npm install` to install missing packages (`react`, `react-dom`, `vite`, `tailwindcss`, `@tailwindcss/vite`, `gsap`, `lucide-react`, `react-router-dom`, etc.).
 - **Dev Server Started**: Development server initialized and running via `npm run dev` (Vite).
 
----
+### [2026-09-22] Restored Sticky Navbar on Scroll
+- **Fixed Sticky Scroll Context**: Removed `overflow-x-hidden` from [`src/layouts/RootLayout.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/layouts/RootLayout.tsx) and applied sticky-safe `overflow-x: clip` on `html, body` in [`src/index.css`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/index.css).
+- Restores the floating header navbar sticking and expanding smoothly as the user scrolls down the page.
 
 ### [2026-09-22] Full Mobile Responsiveness & Touch Optimization
 - **Viewport & Overflow Lock**: Added `overflow-x-hidden` across the root layout and pages to eliminate any horizontal bounce or side-scrolling on mobile devices.

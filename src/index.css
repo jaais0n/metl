@@ -11,9 +11,10 @@
     --card-subtle-light: #ECECEC;
   }
 
-  /* Smooth styling */
+  /* Smooth styling & Sticky-safe horizontal overflow containment */
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   body {
@@ -23,6 +24,7 @@
     letter-spacing: -0.025em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
   }
 }
 
