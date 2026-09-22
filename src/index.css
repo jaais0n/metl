@@ -84,3 +84,48 @@
   background-color: #22C55E;
   display: inline-block;
 }
+
+/* Phone Call Ringing Waves Animation (Only Ringing Arcs Animate) */
+@keyframes ringWaveInner {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.93);
+    transform-origin: 10px 14px;
+  }
+  28%, 45% {
+    opacity: 1;
+    transform: scale(1.06);
+    transform-origin: 10px 14px;
+  }
+  70% {
+    opacity: 0.35;
+    transform: scale(0.96);
+    transform-origin: 10px 14px;
+  }
+}
+
+@keyframes ringWaveOuter {
+  0%, 18%, 100% {
+    opacity: 0.15;
+    transform: scale(0.9);
+    transform-origin: 10px 14px;
+  }
+  48%, 68% {
+    opacity: 1;
+    transform: scale(1.1);
+    transform-origin: 10px 14px;
+  }
+  88% {
+    opacity: 0.25;
+    transform: scale(0.94);
+    transform-origin: 10px 14px;
+  }
+}
+
+.ring-wave-inner {
+  animation: ringWaveInner 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.ring-wave-outer {
+  animation: ringWaveOuter 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}

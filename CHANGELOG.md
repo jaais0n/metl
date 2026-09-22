@@ -12,7 +12,15 @@ This document tracks all changes, updates, installations, and modifications made
 ---
 
 ## 📝 Recent Changes & Updates
- 
+
+### [2026-09-22] Animated Ringing Waves on Book Call Phone Icon
+- Replaced static `PhoneCall` icon with custom `RingingPhoneIcon` in [`src/components/NordostHeader.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHeader.tsx).
+- Added `ringWaveInner` and `ringWaveOuter` CSS keyframe animations in [`src/index.css`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/index.css) to animate **only the two ringing soundwave arcs** (radiating outward in a pulsing rhythm) while keeping the phone handset firmly in place.
+
+### [2026-09-22] Delayed Color Flash on Header 'metl' Brandmark
+- Segmented the header brandmark into `metl` and `.studio` in [`src/components/NordostHeader.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHeader.tsx).
+- Added a delayed GSAP animation sequence (`delay: 1.1s`) on initial page load / mount that performs the thunder color flash and transitions **`metl`** to fluorescent orange (`#FF5500`) while preserving `.studio` in crisp white.
+
 ### [2026-09-22] Delayed Thunder Flash on 'metl' Text
 - Added a timing delay (`delay: 0.6s` on enter, `0.4s` on re-enter) to the thunder color flash sequence in [`src/components/NordostHero.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHero.tsx).
 - Allows the headline text to settle into view in solid dark tone first before the lightning strobe strikes and settles into fluorescent orange (`#FF5500`).
