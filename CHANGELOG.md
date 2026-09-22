@@ -13,9 +13,12 @@ This document tracks all changes, updates, installations, and modifications made
 
 ## 📝 Recent Changes & Updates
 
-### [2026-09-22] Git Branch Setup (`jaisappy`)
-- Created local branch `jaisappy`.
-- Pushed branch `jaisappy` to GitHub remote (`origin/jaisappy`).
+### [2026-09-22] Floating Pill Header Redesign
+- Created floating pill header matching reference design in `NordostHeader.tsx`.
+- **Left Logo**: White circular badge with spiral swirl SVG logo and `metl.studio` logotype.
+- **Center Capsule**: Dark capsule nav container with active pill highlighting (`Home`, `Services`, `Work`, `Explore`, `About`).
+- **Right Actions**: Shopping Bag icon with counter toast, vertical dividers `|`, "Contact" email copy action, and mint-green "Book Call" pill button.
+- Integrated header across routes and verified TypeScript compilation (`tsc --noEmit`).
 
 ---
 

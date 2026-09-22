@@ -4,6 +4,7 @@ import {
   Palette, 
   CheckCircle2
 } from 'lucide-react';
+import { NordostHeader } from '../components/NordostHeader';
 
 interface ComponentDemo {
   id: string;
@@ -81,7 +82,9 @@ export const ExplorePage = () => {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-[#F6F6F6] text-[#090909]">
+      <NordostHeader />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="mb-10 text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold mb-4">

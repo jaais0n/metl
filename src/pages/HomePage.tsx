@@ -56,7 +56,7 @@ export const HomePage = () => {
   return (
     <div className="min-h-screen bg-[#F6F6F6] text-[#090909] selection:bg-black selection:text-white antialiased">
       {/* 1. Sticky Header with exact vector logotype and contact actions */}
-      <NordostHeader />
+      <NordostHeader onBookCall={handleOpenBooking} />
 
       {/* 2. Main Studio Experience */}
       <main id="main">
