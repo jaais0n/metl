@@ -11,11 +11,9 @@
     --card-subtle-light: #ECECEC;
   }
 
-  /* Zero drop shadows */
-  *, *::before, *::after {
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    text-shadow: none !important;
+  /* Smooth styling */
+  html {
+    scroll-behavior: smooth;
   }
 
   body {

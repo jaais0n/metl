@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -13,28 +13,51 @@ export const NordostHero = ({ onBookCall }: NordostHeroProps) => {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
+  const metlRef = useRef<HTMLSpanElement>(null);
+  const [isOrangeActive, setIsOrangeActive] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
+      // 1. Initial headline and elements fade in
       tl.from(headlineRef.current, {
-        y: 40,
+        y: 35,
         opacity: 0,
-        duration: 1.1,
+        duration: 0.9,
         delay: 0.1,
       })
       .from(ctaRef.current, {
         y: 20,
         opacity: 0,
-        duration: 0.8,
-      }, '-=0.6')
+        duration: 0.7,
+      }, '-=0.5')
       .from(mediaRef.current, {
-        y: 50,
+        y: 40,
         opacity: 0,
         scale: 0.98,
-        duration: 1.2,
-      }, '-=0.7');
+        duration: 1.0,
+      }, '-=0.6');
+
+      // 2. Pure Color Flash Strobe Sequence on 'metl'
+      const thunderTl = gsap.timeline({ delay: 0.6 });
+
+      thunderTl
+        // Quick color strobe
+        .to(metlRef.current, { color: '#ffffff', duration: 0.05 })
+        .to(metlRef.current, { color: '#090909', duration: 0.04 })
+        .to(metlRef.current, { color: '#ffffff', duration: 0.06 })
+        .to(metlRef.current, { color: '#090909', duration: 0.04 })
+        .to(metlRef.current, { color: '#ffffff', duration: 0.06 })
+        // Smoothly settle into solid, crisp Fluorescent Orange (zero blur/shadow)
+        .to(metlRef.current, {
+          color: '#FF5500',
+          duration: 0.4,
+          ease: 'power2.out',
+          onComplete: () => {
+            setIsOrangeActive(true);
+          },
+        });
     }, containerRef);
 
     return () => ctx.revert();
@@ -50,7 +73,16 @@ export const NordostHero = ({ onBookCall }: NordostHeroProps) => {
               ref={headlineRef}
               className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.08] text-[#090909]"
             >
-              metl is a design studio that helps ambitious startups leave lasting impressions.
+              {/* Sharp solid fluorescent orange 'metl' with zero blur */}
+              <span
+                ref={metlRef}
+                className={`inline-block font-semibold mr-2 sm:mr-3 ${
+                  isOrangeActive ? 'text-[#FF5500]' : 'text-[#090909]'
+                }`}
+              >
+                metl
+              </span>
+              is a design studio that helps ambitious startups leave lasting impressions.
             </h1>
 
             <div ref={ctaRef} className="pt-2">

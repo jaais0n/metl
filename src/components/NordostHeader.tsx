@@ -12,6 +12,7 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [showCartToast, setShowCartToast] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const location = useLocation();
 
@@ -25,7 +26,21 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
       });
     }, headerRef);
 
-    return () => ctx.revert();
+    const handleScroll = () => {
+      if (window.scrollY > 30) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      ctx.revert();
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleCopyEmail = () => {
@@ -57,17 +72,29 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
   };
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 w-full pt-3 pb-2 px-3 sm:px-6">
-      <div className="max-w-7xl mx-auto">
+    <header ref={headerRef} className="sticky top-0 z-50 w-full pt-3 pb-2 px-3 sm:px-6 pointer-events-none">
+      <div 
+        className={`mx-auto pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isScrolled 
+            ? 'max-w-7xl' 
+            : 'max-w-[720px] lg:max-w-[780px]'
+        }`}
+      >
         {/* Floating Pill Main Bar */}
-        <div className="relative bg-[#09090b] text-white rounded-full p-2 sm:px-3 sm:py-2.5 flex items-center justify-between shadow-2xl shadow-black/40 border border-zinc-800/80 backdrop-blur-xl">
+        <div 
+          className={`relative bg-[#09090b] text-white rounded-full flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isScrolled 
+              ? 'p-2 sm:px-4 sm:py-2.5' 
+              : 'p-1.5 sm:px-3 sm:py-2'
+          }`}
+        >
           
           {/* LEFT: Logo Badge & Brand Name */}
-          <Link to="/" className="flex items-center gap-3 group shrink-0 pl-1">
+          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0 pl-1">
             {/* White Circle Badge with Spiral Swirl Logo */}
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white flex items-center justify-center text-black shadow-md transition-transform duration-300 group-hover:scale-105">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white flex items-center justify-center text-black shadow-md transition-transform duration-300 group-hover:scale-105">
               <svg 
-                className="w-5 h-5 text-black transition-transform duration-500 group-hover:rotate-45" 
+                className="w-4 h-4 sm:w-5 sm:h-5 text-black transition-transform duration-500 group-hover:rotate-45" 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 stroke="currentColor" 
@@ -80,18 +107,18 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             </div>
             
             {/* Brand Title */}
-            <div className="flex items-center gap-1.5 pr-2">
-              <span className="font-sans font-bold text-base sm:text-lg tracking-tight text-white group-hover:text-zinc-200 transition-colors">
+            <div className="flex items-center gap-1 pr-1">
+              <span className="font-sans font-bold text-sm sm:text-base tracking-tight text-white group-hover:text-zinc-200 transition-colors">
                 metl
               </span>
-              <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-400 font-medium hidden xs:inline">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 font-medium hidden xs:inline">
                 .studio
               </span>
             </div>
           </Link>
 
           {/* CENTER: Dark Nav Pill Capsule (Desktop) */}
-          <nav className="hidden lg:flex items-center bg-[#18181b] rounded-full p-1 border border-zinc-800/60 shadow-inner">
+          <nav className="hidden md:flex items-center bg-[#18181b] rounded-full p-1">
             {navItems.map((item) => {
               const active = isCurrentActive(item.href, item.isRoute);
 
@@ -100,9 +127,9 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
                   <Link
                     key={item.label}
                     to={item.href}
-                    className={`px-4 sm:px-5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
+                    className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
                       active
-                        ? 'bg-[#e2d9ff] text-[#121024] font-semibold shadow-sm scale-[1.02]'
+                        ? 'bg-[#e2d9ff] text-[#121024] font-semibold scale-[1.02]'
                         : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
                     }`}
                   >
@@ -115,7 +142,7 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="px-4 sm:px-5 py-1.5 rounded-full text-xs sm:text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-all duration-200"
+                  className="px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-all duration-200"
                 >
                   {item.label}
                 </a>
@@ -128,10 +155,10 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             {/* Shopping Bag Button */}
             <button
               onClick={handleCartClick}
-              className="relative w-9 h-9 rounded-full bg-[#18181b] text-zinc-300 hover:text-white flex items-center justify-center hover:bg-zinc-800 border border-zinc-800/60 transition-all cursor-pointer group"
+              className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#18181b] text-zinc-300 hover:text-white flex items-center justify-center hover:bg-zinc-800 transition-all cursor-pointer group"
               title="View Cart / Inquiry Bag"
             >
-              <ShoppingBag className="w-4 h-4 transition-transform group-hover:scale-110" />
+              <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110" />
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 text-black text-[10px] font-bold rounded-full flex items-center justify-center animate-pulse">
                   {cartCount}
@@ -140,12 +167,12 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             </button>
 
             {/* Subtle Vertical Divider */}
-            <span className="hidden sm:block w-[1px] h-4 bg-zinc-800/80 my-auto" />
+            <span className="hidden sm:block w-[1px] h-3.5 sm:h-4 bg-zinc-800/80 my-auto" />
 
             {/* Contact / Email Copy Button */}
             <button
               onClick={handleCopyEmail}
-              className="hidden sm:inline-flex items-center gap-1.5 bg-[#18181b] text-zinc-200 hover:text-white hover:bg-zinc-800 border border-zinc-800/60 rounded-full px-4 py-1.5 text-xs sm:text-sm font-medium transition-all cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-1.5 bg-[#18181b] text-zinc-200 hover:text-white hover:bg-zinc-800 rounded-full px-3.5 sm:px-4 py-1.5 text-xs sm:text-sm font-medium transition-all cursor-pointer"
             >
               {copied ? (
                 <>
@@ -158,12 +185,12 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             </button>
 
             {/* Subtle Vertical Divider */}
-            <span className="hidden sm:block w-[1px] h-4 bg-zinc-800/80 my-auto" />
+            <span className="hidden sm:block w-[1px] h-3.5 sm:h-4 bg-zinc-800/80 my-auto" />
 
             {/* Mint Green Sign Up / Book Call Button */}
             <button
               onClick={onBookCall}
-              className="bg-[#e6f7ec] text-[#0a3821] hover:bg-[#d2f3dc] font-semibold rounded-full px-4 sm:px-5 py-1.5 text-xs sm:text-sm transition-all duration-200 shadow-sm hover:shadow-emerald-900/20 active:scale-95 cursor-pointer flex items-center gap-1"
+              className="bg-[#e6f7ec] text-[#0a3821] hover:bg-[#d2f3dc] font-semibold rounded-full px-3.5 sm:px-4 py-1.5 text-xs sm:text-sm transition-all duration-200 active:scale-95 cursor-pointer flex items-center gap-1"
             >
               <span>Book Call</span>
               <ArrowUpRight className="w-3.5 h-3.5 opacity-70" />
@@ -172,17 +199,17 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             {/* Mobile Menu Toggle Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-9 h-9 rounded-full bg-[#18181b] text-zinc-300 flex items-center justify-center hover:bg-zinc-800 border border-zinc-800/60 transition-colors ml-1"
+              className="md:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#18181b] text-zinc-300 flex items-center justify-center hover:bg-zinc-800 transition-colors ml-0.5"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="w-4 h-4 sm:w-5 sm:h-5" /> : <Menu className="w-4 h-4 sm:w-5 sm:h-5" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Dropdown Nav Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-2 p-3 bg-[#09090b]/95 backdrop-blur-2xl rounded-3xl border border-zinc-800 text-white shadow-2xl flex flex-col gap-1.5 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="md:hidden mt-2 p-3 bg-[#09090b] rounded-3xl text-white shadow-2xl flex flex-col gap-1.5 animate-in fade-in slide-in-from-top-2 duration-200">
             {navItems.map((item) => (
               <a
                 key={item.label}
@@ -221,4 +248,5 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
     </header>
   );
 };
+
 
