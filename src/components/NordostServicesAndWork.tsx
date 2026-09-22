@@ -106,7 +106,7 @@ export const NordostServicesAndWork = ({ onSelectProject }: NordostServicesAndWo
   ];
 
   return (
-    <div ref={containerRef} className="bg-[#090909] text-[#F6F6F6]">
+    <div ref={containerRef} data-bg="dark" className="bg-[#090909] text-[#F6F6F6]">
       {/* 1. How we can help / Services */}
       <section className="py-20 md:py-28 border-b border-neutral-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

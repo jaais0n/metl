@@ -34,6 +34,7 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
   const [cartCount, setCartCount] = useState(0);
   const [showCartToast, setShowCartToast] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDarkBackground, setIsDarkBackground] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const brandMetlRef = useRef<HTMLSpanElement>(null);
   const location = useLocation();
@@ -64,19 +65,34 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
     }, headerRef);
 
     const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 30);
+
+      // Detect if header is hovering over dark background sections
+      if (headerRef.current) {
+        const headerRect = headerRef.current.getBoundingClientRect();
+        const headerMidY = headerRect.top + headerRect.height / 2;
+
+        const darkElements = document.querySelectorAll('[data-bg="dark"]');
+        let overDark = false;
+        darkElements.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= headerMidY && rect.bottom >= headerMidY) {
+            overDark = true;
+          }
+        });
+        setIsDarkBackground(overDark);
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
     handleScroll();
 
     return () => {
       ctx.revert();
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
     };
   }, []);
 
@@ -117,9 +133,13 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             : 'max-w-[720px] lg:max-w-[780px]'
         }`}
       >
-        {/* Floating Pill Main Bar */}
+        {/* Floating Pill Main Bar - Automatically adapts to Light/Dark Mode based on background theme */}
         <div 
-          className={`relative bg-[#09090b] text-white rounded-full flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`relative rounded-full flex items-center justify-between transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isDarkBackground
+              ? 'bg-white text-[#090909] shadow-2xl border border-black/5'
+              : 'bg-[#09090b] text-white shadow-xl'
+          } ${
             isScrolled 
               ? 'p-2 sm:px-4 sm:py-2.5' 
               : 'p-1.5 sm:px-3 sm:py-2'
@@ -129,17 +149,32 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
           {/* LEFT: Brand Wordmark */}
           <Link to="/" className="flex items-center group shrink-0 pl-3.5 pr-2 py-1">
             <span className="font-sans font-bold text-base sm:text-lg tracking-tight">
-              <span ref={brandMetlRef} className="text-white inline-block">
+              <span 
+                ref={brandMetlRef} 
+                className={`inline-block transition-colors ${
+                  isDarkBackground ? 'text-[#090909]' : 'text-white'
+                }`}
+              >
                 metl
               </span>
-              <span className="text-white group-hover:text-zinc-300 transition-colors inline-block">
+              <span 
+                className={`inline-block transition-colors ${
+                  isDarkBackground 
+                    ? 'text-[#090909] group-hover:text-zinc-600' 
+                    : 'text-white group-hover:text-zinc-300'
+                }`}
+              >
                 .studio
               </span>
             </span>
           </Link>
 
-          {/* CENTER: Dark Nav Pill Capsule (Locked to True Center) */}
-          <nav className="hidden md:flex items-center bg-[#18181b] rounded-full p-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+          {/* CENTER: Dark/Light Nav Pill Capsule (Locked to True Center) */}
+          <nav 
+            className={`hidden md:flex items-center rounded-full p-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 transition-colors duration-300 ${
+              isDarkBackground ? 'bg-[#ececec]' : 'bg-[#18181b]'
+            }`}
+          >
             {navItems.map((item) => {
               const active = isCurrentActive(item.href, item.isRoute);
 
@@ -150,8 +185,12 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
                     to={item.href}
                     className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
                       active
-                        ? 'bg-[#e2d9ff] text-[#121024] font-semibold scale-[1.02]'
-                        : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
+                        ? isDarkBackground
+                          ? 'bg-[#09090b] text-white font-semibold shadow-sm'
+                          : 'bg-[#e2d9ff] text-[#121024] font-semibold scale-[1.02]'
+                        : isDarkBackground
+                          ? 'text-zinc-600 hover:text-black hover:bg-zinc-300/60'
+                          : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
                     }`}
                   >
                     {item.label}
@@ -163,7 +202,11 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-all duration-200"
+                  className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
+                    isDarkBackground
+                      ? 'text-zinc-600 hover:text-black hover:bg-zinc-300/60'
+                      : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
+                  }`}
                 >
                   {item.label}
                 </a>
@@ -176,7 +219,11 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             {/* Shopping Bag Button */}
             <button
               onClick={handleCartClick}
-              className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#18181b] text-zinc-300 hover:text-white flex items-center justify-center hover:bg-zinc-800 transition-all cursor-pointer group"
+              className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all cursor-pointer group ${
+                isDarkBackground
+                  ? 'bg-[#ececec] text-zinc-700 hover:text-black hover:bg-zinc-300'
+                  : 'bg-[#18181b] text-zinc-300 hover:text-white hover:bg-zinc-800'
+              }`}
               title="View Cart / Inquiry Bag"
             >
               <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110" />
@@ -188,12 +235,20 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             </button>
 
             {/* Subtle Vertical Divider */}
-            <span className="hidden sm:block w-[1px] h-3.5 sm:h-4 bg-zinc-800/80 my-auto" />
+            <span 
+              className={`hidden sm:block w-[1px] h-3.5 sm:h-4 my-auto transition-colors ${
+                isDarkBackground ? 'bg-zinc-300/80' : 'bg-zinc-800/80'
+              }`} 
+            />
 
-            {/* Contact / Email Copy Button (Icon when compact, Full text when stretched) */}
+            {/* Contact / Email Copy Button */}
             <button
               onClick={handleCopyEmail}
-              className={`relative bg-[#18181b] text-zinc-300 hover:text-white flex items-center justify-center hover:bg-zinc-800 transition-all duration-300 cursor-pointer group ${
+              className={`relative flex items-center justify-center transition-all duration-300 cursor-pointer group ${
+                isDarkBackground
+                  ? 'bg-[#ececec] text-zinc-700 hover:text-black hover:bg-zinc-300'
+                  : 'bg-[#18181b] text-zinc-300 hover:text-white hover:bg-zinc-800'
+              } ${
                 isScrolled
                   ? 'rounded-full px-4 py-1.5 text-xs sm:text-sm font-medium gap-1.5'
                   : 'w-8 h-8 sm:w-9 sm:h-9 rounded-full'
@@ -203,8 +258,12 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             >
               {copied ? (
                 <>
-                  <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" />
-                  {isScrolled && <span className="text-emerald-300 font-medium">Copied</span>}
+                  <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-500" />
+                  {isScrolled && (
+                    <span className={isDarkBackground ? 'text-emerald-700 font-medium' : 'text-emerald-300 font-medium'}>
+                      Copied
+                    </span>
+                  )}
                 </>
               ) : (
                 <>
@@ -215,12 +274,20 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             </button>
 
             {/* Subtle Vertical Divider */}
-            <span className="hidden sm:block w-[1px] h-3.5 sm:h-4 bg-zinc-800/80 my-auto" />
+            <span 
+              className={`hidden sm:block w-[1px] h-3.5 sm:h-4 my-auto transition-colors ${
+                isDarkBackground ? 'bg-zinc-300/80' : 'bg-zinc-800/80'
+              }`} 
+            />
 
-            {/* Mint Green Book Call Button (Icon when compact, Full text when stretched) */}
+            {/* Mint Green / Dark Book Call Button */}
             <button
               onClick={onBookCall}
-              className={`relative bg-[#e6f7ec] text-[#0a3821] hover:bg-[#d2f3dc] flex items-center justify-center transition-all duration-300 active:scale-95 cursor-pointer group ${
+              className={`relative flex items-center justify-center transition-all duration-300 active:scale-95 cursor-pointer group ${
+                isDarkBackground
+                  ? 'bg-[#09090b] text-white hover:bg-zinc-800'
+                  : 'bg-[#e6f7ec] text-[#0a3821] hover:bg-[#d2f3dc]'
+              } ${
                 isScrolled
                   ? 'rounded-full px-4 sm:px-5 py-1.5 text-xs sm:text-sm font-semibold gap-1.5'
                   : 'w-8 h-8 sm:w-9 sm:h-9 rounded-full'
@@ -235,7 +302,11 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             {/* Mobile Menu Toggle Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#18181b] text-zinc-300 flex items-center justify-center hover:bg-zinc-800 transition-colors ml-0.5"
+              className={`md:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-colors ml-0.5 ${
+                isDarkBackground
+                  ? 'bg-[#ececec] text-zinc-700 hover:bg-zinc-300'
+                  : 'bg-[#18181b] text-zinc-300 hover:bg-zinc-800'
+              }`}
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-4 h-4 sm:w-5 sm:h-5" /> : <Menu className="w-4 h-4 sm:w-5 sm:h-5" />}
@@ -245,24 +316,42 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
 
         {/* Mobile Dropdown Nav Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-2 p-3 bg-[#09090b] rounded-3xl text-white shadow-2xl flex flex-col gap-1.5 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div 
+            className={`md:hidden mt-2 p-3 rounded-3xl shadow-2xl flex flex-col gap-1.5 animate-in fade-in slide-in-from-top-2 duration-200 ${
+              isDarkBackground
+                ? 'bg-white text-[#090909] border border-zinc-200'
+                : 'bg-[#09090b] text-white'
+            }`}
+          >
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-4 py-2.5 rounded-2xl text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors flex items-center justify-between"
+                className={`px-4 py-2.5 rounded-2xl text-sm font-medium transition-colors flex items-center justify-between ${
+                  isDarkBackground
+                    ? 'text-zinc-700 hover:text-black hover:bg-zinc-100'
+                    : 'text-zinc-300 hover:text-white hover:bg-zinc-900'
+                }`}
               >
                 <span>{item.label}</span>
                 {item.href.startsWith('/') && <ArrowUpRight className="w-4 h-4 text-zinc-500" />}
               </a>
             ))}
-            <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between px-2">
+            <div 
+              className={`pt-2 border-t flex items-center justify-between px-2 ${
+                isDarkBackground ? 'border-zinc-200' : 'border-zinc-800/80'
+              }`}
+            >
               <button
                 onClick={handleCopyEmail}
-                className="text-xs text-zinc-400 hover:text-white flex items-center gap-1.5 py-1"
+                className={`text-xs flex items-center gap-1.5 py-1 ${
+                  isDarkBackground
+                    ? 'text-zinc-600 hover:text-black'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : null}
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : null}
                 <span>{copied ? 'hi@metl.studio copied' : 'hi@metl.studio'}</span>
               </button>
             </div>

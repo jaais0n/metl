@@ -73,7 +73,7 @@ export const NordostFooter = () => {
   }, []);
 
   return (
-    <footer ref={footerRef} className="bg-[#090909] text-[#F6F6F6] pt-12 pb-6 overflow-hidden">
+    <footer ref={footerRef} data-bg="dark" className="bg-[#090909] text-[#F6F6F6] pt-12 pb-6 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Info Bar */}
         <div ref={topBarRef} className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-16 border-b border-neutral-800">

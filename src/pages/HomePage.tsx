@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { NordostHeader } from '../components/NordostHeader';
 import { NordostHero } from '../components/NordostHero';
+import { NordostClientsMarquee } from '../components/NordostClientsMarquee';
 import { NordostWhyInvest } from '../components/NordostWhyInvest';
 import { NordostServicesAndWork } from '../components/NordostServicesAndWork';
 import { NordostTestimonials } from '../components/NordostTestimonials';
@@ -62,6 +63,9 @@ export const HomePage = () => {
       <main id="main">
         {/* Light Hero with Headline, Cal discovery call button, and wide stage presentation image */}
         <NordostHero onBookCall={handleOpenBooking} />
+
+        {/* Client Logos Infinite Scrolling Marquee */}
+        <NordostClientsMarquee />
 
         {/* Light: Why invest in brand (3 Research study cards) */}
         <NordostWhyInvest />

@@ -106,7 +106,7 @@ export const NordostTestimonials = () => {
   const current = testimonials[activeIndex];
 
   return (
-    <section ref={sectionRef} className="bg-[#090909] text-[#F6F6F6] py-20 md:py-28 border-b border-neutral-800 select-none">
+    <section ref={sectionRef} data-bg="dark" className="bg-[#090909] text-[#F6F6F6] py-20 md:py-28 border-b border-neutral-800 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-10">
           <div className="flex items-center justify-between">

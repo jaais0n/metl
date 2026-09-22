@@ -13,6 +13,61 @@ This document tracks all changes, updates, installations, and modifications made
 
 ## 📝 Recent Changes & Updates
 
+### [2026-09-22] Compact 6-Word Phrases (Strict Max 2–3 Lines on All Screens)
+- Shortened and punch-optimized all 4 rotating hero statements in [`src/components/NordostHero.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHero.tsx) to strictly 6–7 words (~41–47 chars):
+  1. *"is a design studio for ambitious startups."*
+  2. *"crafts bold brands for industry pioneers."*
+  3. *"transforms complex ideas into clear identities."*
+  4. *"builds digital products that drive real growth."*
+- Guaranteed to never reach 4 lines on any device (sits on 2 lines on desktop/tablet, strictly within 2–3 lines on small phones).
+- Adjusted the locked layout box (`h-[100px] sm:h-[130px] md:h-[155px] lg:h-[185px]`) for a tight, immovable layout.
+
+### [2026-09-22] 3-Line Phrase Constraint & Absolute Hero Layout Lock
+- **Strict 3-Line Constraint**: Constrained all dynamic statements to concise 10-word phrases in [`src/components/NordostHero.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHero.tsx), guaranteeing they strictly occupy max 2–3 lines across all screen viewports.
+- **Absolute Structural Lock**: Wrapped the headline in a responsive fixed-height structural container (`h-[140px] sm:h-[180px] md:h-[220px] lg:h-[260px] overflow-visible`), mathematically preventing the CTA button and the hero media below from moving or shifting up/down during any text animation phase.
+
+### [2026-09-22] Letter-by-Letter Kinetic Blur Wave Transition
+- Updated [`src/components/NordostHero.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHero.tsx) to animate text **character-by-character with a kinetic blur wave**:
+  - **Sequential Blur Entrance**: When a phrase begins, characters blur into focus letter-by-letter (`blur(10px) -> blur(0px)`) with a rapid stagger (`0.018s`), mimicking typing through a blurry kinetic wave.
+  - **Sequential Blur Dissolve**: When a phrase finishes, characters dissolve away letter-by-letter (`blur(0px) -> blur(10px)` with `0.009s` stagger) before the next phrase sweeps in.
+  - **Anchored Foundation**: **`metl`** remains anchored in solid fluorescent orange with no layout shift or line wrapping issues.
+
+### [2026-09-22] Hero Entrance Sequencing ('metl' Flash First, Typewriter After)
+- Configured headline animation sequencing in [`src/components/NordostHero.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHero.tsx):
+  1. On first entrance, **only the word `metl`** appears in the headline.
+  2. The thunder color flash triggers on `metl`, transitioning into fluorescent orange (`#FF5500`).
+  3. **Only after** the flash finishes (`hasFlashCompleted = true`), the typewriter begins typing out the rest of the words on the same line.
+
+### [2026-09-22] Balanced Equal-Length Phrases & Total Height Lock
+- **Equal Phrase Lengths**: Standardized all 4 rotating statements to identical character counts (~73–76 characters) in [`src/components/NordostHero.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHero.tsx):
+  1. *"is a design studio that helps ambitious startups build lasting impressions."* (74 chars)
+  2. *"crafts bold brand identities and digital platforms for industry pioneers."* (73 chars)
+  3. *"transforms complex ideas into clear narratives and fundable visual systems."* (75 chars)
+  4. *"builds category-defining brands that turn user attention into lasting value."* (76 chars)
+- **Zero-Bounce Height Lock**: Expanded and locked the responsive minimum height (`min-h-[140px] sm:min-h-[180px] md:min-h-[220px] lg:min-h-[250px]`) on the headline so that the CTA and hero media below remain completely static and anchored during text deletion.
+
+### [2026-09-22] Faster Typewriter Cadence & Layout Height Stabilization
+- **Accelerated Speed**: Increased typing rate to ~16ms/char and backspacing rate to ~9ms/char in [`src/components/NordostHero.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHero.tsx) for a snappy, fluid rhythm.
+- **Layout Shift Prevention**: Added responsive minimum height constraints (`min-h-[105px] sm:min-h-[135px] md:min-h-[165px] lg:min-h-[200px]`) to the `h1` element, keeping the headline footprint perfectly still and preventing the CTA buttons and hero stage image below from jumping or shifting vertically when text is erased.
+
+### [2026-09-22] Inline Typewriter Transition ("Typing & Going") on Hero Headline
+- Replaced block slide transitions with an inline character-by-character **Typewriter & Backspace Effect** in [`src/components/NordostHero.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHero.tsx).
+- **Same-Line Natural Layout**: Removed separate block wrapping so text continues on the exact same line as the static **`metl`** brandmark.
+- **Typing & Erasing Cadence**: Types out each phrase letter by letter (~36ms), holds for reading (~3.2s), crisply backspaces out (~18ms), and loops through the studio statements with an animated fluorescent orange cursor.
+
+### [2026-09-22] Adaptive Light/Dark Header on Background Theme Transition
+- Added dynamic background theme detection in [`src/components/NordostHeader.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHeader.tsx) to track when the floating header scrolls across dark background sections (`[data-bg="dark"]` in `NordostServicesAndWork`, `NordostTestimonials`, `NordostFooter`).
+- When over a black/dark background, the header dynamically morphs into **Light Mode**:
+  - **Pill Bar**: Morphs from `bg-[#09090b]` to `bg-white text-[#090909]` with soft shadow.
+  - **Wordmark**: `.studio` renders in dark tone (`text-[#090909]`) with the fluorescent orange `metl`.
+  - **Center Nav**: Switches container to `bg-[#ececec]` with active tab in dark (`bg-[#09090b] text-white`).
+  - **Buttons & Icons**: Inquiry bag & Contact button adapt to `bg-[#ececec] text-zinc-700 hover:text-black hover:bg-zinc-300`, and Book Call button transforms into a high-contrast dark capsule.
+  - **Mobile Menu**: Dropdown switches to `bg-white text-black` with light borders.
+
+### [2026-09-22] Famous Tech Company Logos Marquee
+- Updated [`src/components/NordostClientsMarquee.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostClientsMarquee.tsx) with authentic vector logomarks of world-renowned tech companies (**Google**, **Microsoft**, **Apple**, **OpenAI**, **Stripe**, **Meta**, **Figma**, **Linear**, **Amazon**, **Spotify**, **Vercel**, **Airbnb**).
+- Polished continuous ticker animation with edge fade masks positioned right above the "Why invest in brand" section in [`src/pages/HomePage.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/pages/HomePage.tsx).
+
 ### [2026-09-22] Animated Ringing Waves on Book Call Phone Icon
 - Replaced static `PhoneCall` icon with custom `RingingPhoneIcon` in [`src/components/NordostHeader.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHeader.tsx).
 - Added `ringWaveInner` and `ringWaveOuter` CSS keyframe animations in [`src/index.css`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/index.css) to animate **only the two ringing soundwave arcs** (radiating outward in a pulsing rhythm) while keeping the phone handset firmly in place.
