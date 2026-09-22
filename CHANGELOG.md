@@ -13,6 +13,18 @@ This document tracks all changes, updates, installations, and modifications made
 
 ## 📝 Recent Changes & Updates
 
+### [2026-09-22] True Center Alignment for Header Navigation Capsule
+- Replaced flex spacing with absolute 50% center positioning (`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`) for the navigation pill (`Home`, `Services`, `Work`, `Explore`, `About`) in [`src/components/NordostHeader.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHeader.tsx), guaranteeing perfect geometric centering even when the header stretches to full width.
+
+### [2026-09-22] Adaptive Action Buttons (Icons when Compact, Full Text when Stretched)
+- Updated action buttons in [`src/components/NordostHeader.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHeader.tsx) to adaptively switch:
+  - **Compact State (Top)**: Circular icon-only buttons (`Mail`, `PhoneCall`) for a tight, centered look.
+  - **Stretched State (Scroll)**: Smoothly expands into full-text pill buttons ("Contact", "Book Call") as the header expands across the viewport.
+
+### [2026-09-22] Header Brandmark Updated to 'metl.studio' Text
+- Removed the circular swirl logo badge from the header in [`src/components/NordostHeader.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHeader.tsx).
+- Rendered clean, bold typography **`metl.studio`** as the main brandmark.
+
 ### [2026-09-22] Scroll-Triggered Hero Flash & Orange Transition
 - Bound the thunder color flash and fluorescent orange transition to `ScrollTrigger` in [`src/components/NordostHero.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHero.tsx) so it dynamically re-plays whenever the user scrolls into or returns to the hero section.
 

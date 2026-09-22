@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Menu, X, Check, ArrowUpRight } from 'lucide-react';
+import { ShoppingBag, Menu, X, Check, Mail, PhoneCall } from 'lucide-react';
 import gsap from 'gsap';
 
 interface NordostHeaderProps {
@@ -89,36 +89,15 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
           }`}
         >
           
-          {/* LEFT: Logo Badge & Brand Name */}
-          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0 pl-1">
-            {/* White Circle Badge with Spiral Swirl Logo */}
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white flex items-center justify-center text-black shadow-md transition-transform duration-300 group-hover:scale-105">
-              <svg 
-                className="w-4 h-4 sm:w-5 sm:h-5 text-black transition-transform duration-500 group-hover:rotate-45" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2.2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              >
-                <path d="M12 12c.5 1.5 2 2 3.5 1.5s2-2 1.5-3.5S14 8 11 8.5 7 11 7.5 15s4.5 5 8.5 4.5S21 14 20.5 9 15 3 9.5 3.5 3 9 3.5 15" />
-              </svg>
-            </div>
-            
-            {/* Brand Title */}
-            <div className="flex items-center gap-1 pr-1">
-              <span className="font-sans font-bold text-sm sm:text-base tracking-tight text-white group-hover:text-zinc-200 transition-colors">
-                metl
-              </span>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 font-medium hidden xs:inline">
-                .studio
-              </span>
-            </div>
+          {/* LEFT: Brand Wordmark */}
+          <Link to="/" className="flex items-center group shrink-0 pl-3.5 pr-2 py-1">
+            <span className="font-sans font-bold text-base sm:text-lg tracking-tight text-white group-hover:text-zinc-300 transition-colors">
+              metl.studio
+            </span>
           </Link>
 
-          {/* CENTER: Dark Nav Pill Capsule (Desktop) */}
-          <nav className="hidden md:flex items-center bg-[#18181b] rounded-full p-1">
+          {/* CENTER: Dark Nav Pill Capsule (Locked to True Center) */}
+          <nav className="hidden md:flex items-center bg-[#18181b] rounded-full p-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             {navItems.map((item) => {
               const active = isCurrentActive(item.href, item.isRoute);
 
@@ -151,7 +130,7 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
           </nav>
 
           {/* RIGHT: Action Icons & Buttons Group */}
-          <div className="flex items-center gap-1.5 sm:gap-2 pr-1">
+          <div className="flex items-center gap-1.5 sm:gap-2 pr-1 z-20">
             {/* Shopping Bag Button */}
             <button
               onClick={handleCartClick}
@@ -169,31 +148,46 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             {/* Subtle Vertical Divider */}
             <span className="hidden sm:block w-[1px] h-3.5 sm:h-4 bg-zinc-800/80 my-auto" />
 
-            {/* Contact / Email Copy Button */}
+            {/* Contact / Email Copy Button (Icon when compact, Full text when stretched) */}
             <button
               onClick={handleCopyEmail}
-              className="hidden sm:inline-flex items-center gap-1.5 bg-[#18181b] text-zinc-200 hover:text-white hover:bg-zinc-800 rounded-full px-3.5 sm:px-4 py-1.5 text-xs sm:text-sm font-medium transition-all cursor-pointer"
+              className={`relative bg-[#18181b] text-zinc-300 hover:text-white flex items-center justify-center hover:bg-zinc-800 transition-all duration-300 cursor-pointer group ${
+                isScrolled
+                  ? 'rounded-full px-4 py-1.5 text-xs sm:text-sm font-medium gap-1.5'
+                  : 'w-8 h-8 sm:w-9 sm:h-9 rounded-full'
+              }`}
+              title={copied ? 'Copied hi@metl.studio!' : 'Contact (hi@metl.studio)'}
+              aria-label="Contact Email"
             >
               {copied ? (
                 <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-emerald-300">Copied</span>
+                  <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" />
+                  {isScrolled && <span className="text-emerald-300 font-medium">Copied</span>}
                 </>
               ) : (
-                <span>Contact</span>
+                <>
+                  <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110" />
+                  {isScrolled && <span>Contact</span>}
+                </>
               )}
             </button>
 
             {/* Subtle Vertical Divider */}
             <span className="hidden sm:block w-[1px] h-3.5 sm:h-4 bg-zinc-800/80 my-auto" />
 
-            {/* Mint Green Sign Up / Book Call Button */}
+            {/* Mint Green Book Call Button (Icon when compact, Full text when stretched) */}
             <button
               onClick={onBookCall}
-              className="bg-[#e6f7ec] text-[#0a3821] hover:bg-[#d2f3dc] font-semibold rounded-full px-3.5 sm:px-4 py-1.5 text-xs sm:text-sm transition-all duration-200 active:scale-95 cursor-pointer flex items-center gap-1"
+              className={`relative bg-[#e6f7ec] text-[#0a3821] hover:bg-[#d2f3dc] flex items-center justify-center transition-all duration-300 active:scale-95 cursor-pointer group ${
+                isScrolled
+                  ? 'rounded-full px-4 sm:px-5 py-1.5 text-xs sm:text-sm font-semibold gap-1.5'
+                  : 'w-8 h-8 sm:w-9 sm:h-9 rounded-full'
+              }`}
+              title="Book Free Discovery Call"
+              aria-label="Book Call"
             >
-              <span>Book Call</span>
-              <ArrowUpRight className="w-3.5 h-3.5 opacity-70" />
+              <PhoneCall className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110" />
+              {isScrolled && <span>Book Call</span>}
             </button>
 
             {/* Mobile Menu Toggle Button */}
