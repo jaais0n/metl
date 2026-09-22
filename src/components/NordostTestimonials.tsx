@@ -22,7 +22,7 @@ export const NordostTestimonials = () => {
       name: 'Christian Salić',
       role: 'Salić GmbH',
       avatar: 'https://media.studio-nordost.com/media/pages/start/8f1805fabc-1786957439/christian_salic-300x-q80.webp',
-      quote: 'Working with SNO means joy and maturity. The joy comes from fresh, user-focused, purposeful design. Their maturity shows in their reliability, strong commitment, and the professional way they handle project constraints.',
+      quote: 'Working with metl means joy and maturity. The joy comes from fresh, user-focused, purposeful design. Their maturity shows in their reliability, strong commitment, and the professional way they handle project constraints.',
     },
     {
       name: 'Yu Rong',
@@ -34,13 +34,13 @@ export const NordostTestimonials = () => {
       name: 'Jannik Neumann',
       role: 'Perlin.bio',
       avatar: 'https://media.studio-nordost.com/media/pages/work/perlinbio/a372b8a28c-1787150427/jannik_perlin-300x-q80.webp',
-      quote: 'We wanted to stand out in the crowded Swiss startup market. Nordost really impressed us with the depth of their strategic process and the resulting identity will be a real asset as we head into our seed round.',
+      quote: 'We wanted to stand out in the crowded Swiss startup market. metl really impressed us with the depth of their strategic process and the resulting identity will be a real asset as we head into our seed round.',
     },
     {
       name: 'Gregor Wöckl',
       role: 'Studio Wöckl',
       avatar: 'https://media.studio-nordost.com/media/pages/start/586eff2f70-1786957439/gergor_woeckl-300x-q80.webp',
-      quote: 'Nordost gave us clear guidance as we refined our brand and came up with an out-of-the-box solution that truly fit our needs. The whole team is super friendly, structured and responsive.',
+      quote: 'metl gave us clear guidance as we refined our brand and came up with an out-of-the-box solution that truly fit our needs. The whole team is super friendly, structured and responsive.',
     },
     {
       name: 'Gernot Pompenig',
