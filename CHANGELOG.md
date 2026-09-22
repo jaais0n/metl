@@ -13,6 +13,9 @@ This document tracks all changes, updates, installations, and modifications made
 
 ## 📝 Recent Changes & Updates
 
+### [2026-09-22] Scroll-Triggered Hero Flash & Orange Transition
+- Bound the thunder color flash and fluorescent orange transition to `ScrollTrigger` in [`src/components/NordostHero.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHero.tsx) so it dynamically re-plays whenever the user scrolls into or returns to the hero section.
+
 ### [2026-09-22] Removed Header Borders & Strokes
 - Removed all border and outline strokes from the floating header bar and inner capsule buttons in [`src/components/NordostHeader.tsx`](file:///c:/Users/Jaison/Desktop/personal/Projects/metl.studio/src/components/NordostHeader.tsx), creating a pure seamless solid dark pill design.
 

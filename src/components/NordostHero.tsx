@@ -39,25 +39,36 @@ export const NordostHero = ({ onBookCall }: NordostHeroProps) => {
         duration: 1.0,
       }, '-=0.6');
 
-      // 2. Pure Color Flash Strobe Sequence on 'metl'
-      const thunderTl = gsap.timeline({ delay: 0.6 });
+      // Helper to trigger the color flash and orange transition
+      const playFlashEffect = () => {
+        if (!metlRef.current) return;
+        gsap.killTweensOf(metlRef.current);
+        const thunderTl = gsap.timeline();
 
-      thunderTl
-        // Quick color strobe
-        .to(metlRef.current, { color: '#ffffff', duration: 0.05 })
-        .to(metlRef.current, { color: '#090909', duration: 0.04 })
-        .to(metlRef.current, { color: '#ffffff', duration: 0.06 })
-        .to(metlRef.current, { color: '#090909', duration: 0.04 })
-        .to(metlRef.current, { color: '#ffffff', duration: 0.06 })
-        // Smoothly settle into solid, crisp Fluorescent Orange (zero blur/shadow)
-        .to(metlRef.current, {
-          color: '#FF5500',
-          duration: 0.4,
-          ease: 'power2.out',
-          onComplete: () => {
-            setIsOrangeActive(true);
-          },
-        });
+        thunderTl
+          .set(metlRef.current, { color: '#090909' })
+          .to(metlRef.current, { color: '#ffffff', duration: 0.05 })
+          .to(metlRef.current, { color: '#090909', duration: 0.04 })
+          .to(metlRef.current, { color: '#ffffff', duration: 0.06 })
+          .to(metlRef.current, { color: '#090909', duration: 0.04 })
+          .to(metlRef.current, { color: '#ffffff', duration: 0.06 })
+          .to(metlRef.current, {
+            color: '#FF5500',
+            duration: 0.4,
+            ease: 'power2.out',
+            onComplete: () => {
+              setIsOrangeActive(true);
+            },
+          });
+      };
+
+      // 2. ScrollTrigger to play flash whenever user scrolls into this section
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: 'top 85%',
+        onEnter: () => playFlashEffect(),
+        onEnterBack: () => playFlashEffect(),
+      });
     }, containerRef);
 
     return () => ctx.revert();
