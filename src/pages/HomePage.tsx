@@ -7,7 +7,8 @@ import { NordostClientsMarquee } from '../components/NordostClientsMarquee';
 import { NordostWhyInvest } from '../components/NordostWhyInvest';
 import { NordostServicesAndWork } from '../components/NordostServicesAndWork';
 import { NordostTestimonials } from '../components/NordostTestimonials';
-import { NordostHowWeWork } from '../components/NordostHowWeWork';
+import { NordostExploreSection } from '../components/NordostExploreSection';
+import { NordostAboutSection } from '../components/NordostAboutSection';
 import { NordostCta } from '../components/NordostCta';
 import { NordostFooter } from '../components/NordostFooter';
 import { NordostBookingModal } from '../components/NordostBookingModal';
@@ -76,8 +77,11 @@ export const HomePage = () => {
         {/* Dark (#090909): Clients and Partners Testimonials Carousel with Avatars */}
         <NordostTestimonials />
 
-        {/* Light: How we work (3 Core Principles) */}
-        <NordostHowWeWork />
+        {/* Dark (#090909): Explore & Creative Technology Lab */}
+        <NordostExploreSection />
+
+        {/* Light: About the Studio, Principles, Metrics & Team */}
+        <NordostAboutSection />
 
         {/* Light: Interested in working with us? (Closing CTA) */}
         <NordostCta onBookCall={handleOpenBooking} />

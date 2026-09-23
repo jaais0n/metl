@@ -109,19 +109,68 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
   };
 
   const navItems = [
-    { label: 'Home', href: '/', isRoute: true },
-    { label: 'Services', href: '/#services', isRoute: false },
-    { label: 'Work', href: '/#work', isRoute: false },
-    { label: 'Explore', href: '/explore', isRoute: true },
-    { label: 'About', href: '/about', isRoute: true },
+    { id: 'home', label: 'Home', route: '/' },
+    { id: 'services', label: 'Services', route: '/services' },
+    { id: 'work', label: 'Work', route: '/work' },
+    { id: 'explore', label: 'Explore', route: '/explore' },
+    { id: 'about', label: 'About', route: '/about' },
   ];
 
-  const isCurrentActive = (itemHref: string, isRoute: boolean) => {
-    if (isRoute) {
-      if (itemHref === '/' && location.pathname === '/') return true;
-      if (itemHref !== '/' && location.pathname.startsWith(itemHref)) return true;
+  const [activeSection, setActiveSection] = useState<string>('home');
+
+  useEffect(() => {
+    if (location.pathname === '/services') {
+      setActiveSection('services');
+      return;
     }
-    return false;
+    if (location.pathname === '/work') {
+      setActiveSection('work');
+      return;
+    }
+    if (location.pathname === '/explore') {
+      setActiveSection('explore');
+      return;
+    }
+    if (location.pathname === '/about') {
+      setActiveSection('about');
+      return;
+    }
+
+    if (location.pathname === '/') {
+      const handleSectionScroll = () => {
+        const sections = ['home', 'services', 'work', 'explore', 'about'];
+        const scrollPosition = window.scrollY + 200;
+
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const sectionId = sections[i];
+          const el = document.getElementById(sectionId);
+          if (el) {
+            const top = el.offsetTop;
+            if (scrollPosition >= top) {
+              setActiveSection(sectionId);
+              return;
+            }
+          }
+        }
+        setActiveSection('home');
+      };
+
+      window.addEventListener('scroll', handleSectionScroll, { passive: true });
+      handleSectionScroll();
+      return () => window.removeEventListener('scroll', handleSectionScroll);
+    }
+  }, [location.pathname]);
+
+  const handleNavClick = (e: React.MouseEvent, item: typeof navItems[0]) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      const el = document.getElementById(item.id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        setActiveSection(item.id);
+        window.history.replaceState(null, '', item.id === 'home' ? '/' : `/#${item.id}`);
+      }
+    }
   };
 
   return (
@@ -133,7 +182,7 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             : 'max-w-[720px] lg:max-w-[780px]'
         }`}
       >
-        {/* Floating Pill Main Bar - Automatically adapts to Light/Dark Mode based on background theme */}
+        {/* Floating Pill Main Bar */}
         <div 
           className={`relative rounded-full flex items-center justify-between transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             isDarkBackground
@@ -169,47 +218,26 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
             </span>
           </Link>
 
-          {/* CENTER: Dark/Light Nav Pill Capsule (Locked to True Center) */}
+          {/* CENTER: Exact Pill Capsule matching reference screenshot */}
           <nav 
-            className={`hidden md:flex items-center rounded-full p-1 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 transition-colors duration-300 ${
-              isDarkBackground ? 'bg-[#ececec]' : 'bg-[#18181b]'
-            }`}
+            className="hidden md:flex items-center rounded-full p-1 bg-[#131316] border border-white/5 shadow-md absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 select-none"
           >
             {navItems.map((item) => {
-              const active = isCurrentActive(item.href, item.isRoute);
-
-              if (item.isRoute) {
-                return (
-                  <Link
-                    key={item.label}
-                    to={item.href}
-                    className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
-                      active
-                        ? isDarkBackground
-                          ? 'bg-[#09090b] text-white font-semibold shadow-sm'
-                          : 'bg-[#e2d9ff] text-[#121024] font-semibold scale-[1.02]'
-                        : isDarkBackground
-                          ? 'text-zinc-600 hover:text-black hover:bg-zinc-300/60'
-                          : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              }
+              const active = activeSection === item.id;
 
               return (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
-                    isDarkBackground
-                      ? 'text-zinc-600 hover:text-black hover:bg-zinc-300/60'
-                      : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'
+                <Link
+                  key={item.id}
+                  to={item.route}
+                  onClick={(e) => handleNavClick(e, item)}
+                  className={`px-4 sm:px-4.5 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer ${
+                    active
+                      ? 'bg-[#E5E0FF] text-[#121118] font-semibold scale-[1.02] shadow-xs'
+                      : 'text-[#8292AF] hover:text-white'
                   }`}
                 >
                   {item.label}
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -330,44 +358,27 @@ export const NordostHeader = ({ onBookCall }: NordostHeaderProps) => {
               }`}
             >
               {navItems.map((item) => {
-                const active = isCurrentActive(item.href, item.isRoute);
-
-                if (item.isRoute) {
-                  return (
-                    <Link
-                      key={item.label}
-                      to={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`px-4 py-3 rounded-2xl text-sm font-medium transition-colors flex items-center justify-between min-h-[48px] active:scale-[0.99] ${
-                        active
-                          ? isDarkBackground
-                            ? 'bg-zinc-100 text-black font-semibold'
-                            : 'bg-zinc-800 text-white font-semibold'
-                          : isDarkBackground
-                            ? 'text-zinc-700 hover:text-black hover:bg-zinc-100'
-                            : 'text-zinc-300 hover:text-white hover:bg-zinc-900'
-                      }`}
-                    >
-                      <span>{item.label}</span>
-                      <ArrowUpRight className="w-4 h-4 text-zinc-500" />
-                    </Link>
-                  );
-                }
+                const active = activeSection === item.id;
 
                 return (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
+                  <Link
+                    key={item.id}
+                    to={item.route}
+                    onClick={(e) => {
+                      setMobileMenuOpen(false);
+                      handleNavClick(e, item);
+                    }}
                     className={`px-4 py-3 rounded-2xl text-sm font-medium transition-colors flex items-center justify-between min-h-[48px] active:scale-[0.99] ${
-                      isDarkBackground
-                        ? 'text-zinc-700 hover:text-black hover:bg-zinc-100'
-                        : 'text-zinc-300 hover:text-white hover:bg-zinc-900'
+                      active
+                        ? 'bg-[#E5E0FF] text-[#121118] font-semibold'
+                        : isDarkBackground
+                          ? 'text-zinc-700 hover:text-black hover:bg-zinc-100'
+                          : 'text-[#8292AF] hover:text-white hover:bg-zinc-900'
                     }`}
                   >
                     <span>{item.label}</span>
                     <ArrowUpRight className="w-4 h-4 text-zinc-500" />
-                  </a>
+                  </Link>
                 );
               })}
 

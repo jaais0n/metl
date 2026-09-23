@@ -128,7 +128,7 @@ export const NordostHero = ({ onBookCall }: NordostHeroProps) => {
   }, []);
 
   return (
-    <section ref={containerRef} className="bg-[#F6F6F6] text-[#090909] pt-8 pb-16 md:pt-14 md:pb-24 overflow-hidden">
+    <section id="home" ref={containerRef} className="bg-[#F6F6F6] text-[#090909] pt-8 pb-16 md:pt-14 md:pb-24 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-8 md:space-y-12">
           {/* Lede & Headline */}
