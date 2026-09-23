@@ -106,7 +106,7 @@ export const NordostTestimonials = () => {
   const current = testimonials[activeIndex];
 
   return (
-    <section ref={sectionRef} className="bg-[#090909] text-[#F6F6F6] py-20 md:py-28 border-b border-neutral-800 select-none">
+    <section ref={sectionRef} data-bg="dark" className="bg-[#090909] text-[#F6F6F6] py-20 md:py-28 border-b border-neutral-800 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-10">
           <div className="flex items-center justify-between">
@@ -122,10 +122,10 @@ export const NordostTestimonials = () => {
           <div
             ref={quoteContainerRef}
             onClick={() => setActiveIndex((prev) => (prev + 1) % testimonials.length)}
-            className="cursor-pointer min-h-[260px] md:min-h-[220px] flex flex-col justify-between group"
+            className="cursor-pointer min-h-[280px] sm:min-h-[240px] md:min-h-[210px] flex flex-col justify-between group"
           >
             {/* Person Bio */}
-            <div className="flex items-center gap-3.5 mb-6">
+            <div className="flex items-center gap-3.5 mb-5 sm:mb-6">
               <img
                 src={current.avatar}
                 alt={current.name}
@@ -139,28 +139,59 @@ export const NordostTestimonials = () => {
             </div>
 
             {/* Big Statement Quote */}
-            <blockquote className="text-xl sm:text-2xl md:text-3xl font-light text-[#D4D4D4] leading-relaxed group-hover:text-white transition-colors duration-300">
+            <blockquote className="text-lg sm:text-2xl md:text-3xl font-light text-[#D4D4D4] leading-relaxed group-hover:text-white transition-colors duration-300">
               "{current.quote}"
             </blockquote>
           </div>
 
-          {/* Navigation Dots Indicator */}
-          <div className="pt-8 flex items-center gap-2" role="tablist" aria-label="Testimonials">
-            {testimonials.map((t, idx) => (
+          {/* Navigation Controls: Dots + Prev/Next Arrows for Mobile & Desktop */}
+          <div className="pt-6 sm:pt-8 flex items-center justify-between">
+            {/* Dots Indicator */}
+            <div className="flex items-center gap-1.5" role="tablist" aria-label="Testimonials">
+              {testimonials.map((t, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  role="tab"
+                  aria-selected={idx === activeIndex}
+                  aria-label={`Testimonial ${idx + 1} of ${testimonials.length} — ${t.name}`}
+                  onClick={() => setActiveIndex(idx)}
+                  className="py-3 px-1 cursor-pointer focus:outline-none"
+                >
+                  <span
+                    className={`block h-1.5 rounded-full transition-all duration-300 ${
+                      idx === activeIndex
+                        ? 'w-7 sm:w-8 bg-white'
+                        : 'w-2 bg-neutral-700 hover:bg-neutral-500'
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+
+            {/* Prev/Next Quick Navigation Buttons */}
+            <div className="flex items-center gap-2">
               <button
-                key={idx}
-                type="button"
-                role="tab"
-                aria-selected={idx === activeIndex}
-                aria-label={`Testimonial ${idx + 1} of ${testimonials.length} — ${t.name}`}
-                onClick={() => setActiveIndex(idx)}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  idx === activeIndex
-                    ? 'w-8 bg-white'
-                    : 'w-2 bg-neutral-700 hover:bg-neutral-500'
-                }`}
-              />
-            ))}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+                }}
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-800 flex items-center justify-center transition active:scale-95 cursor-pointer"
+                aria-label="Previous testimonial"
+              >
+                ←
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveIndex((prev) => (prev + 1) % testimonials.length);
+                }}
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-800 flex items-center justify-center transition active:scale-95 cursor-pointer"
+                aria-label="Next testimonial"
+              >
+                →
+              </button>
+            </div>
           </div>
         </div>
       </div>

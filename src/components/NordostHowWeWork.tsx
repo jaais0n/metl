@@ -81,9 +81,9 @@ export const NordostHowWeWork = () => {
   ];
 
   return (
-    <section id="how-we-work" ref={sectionRef} className="bg-[#F6F6F6] text-[#090909] py-20 md:py-28">
+    <section id="how-we-work" ref={sectionRef} className="bg-[#F6F6F6] text-[#090909] py-16 sm:py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={headRef} className="space-y-4 mb-12 md:mb-16">
+        <div ref={headRef} className="space-y-4 mb-10 sm:mb-12 md:mb-16">
           <p className="font-mono text-xs uppercase tracking-widest text-[#737373]">
             How we work
           </p>
@@ -92,22 +92,22 @@ export const NordostHowWeWork = () => {
           </h2>
         </div>
 
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {principles.map((item, idx) => (
             <div
               key={idx}
-              className="bg-[#FFFFFF] p-8 rounded-2xl flex flex-col justify-between h-full min-h-[260px] border border-neutral-200/70 hover:border-neutral-400 transition-all duration-300"
+              className="bg-[#FFFFFF] p-6 sm:p-8 rounded-2xl flex flex-col justify-between h-full min-h-[220px] sm:min-h-[260px] border border-neutral-200/70 hover:border-neutral-400 transition-all duration-300"
             >
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div className="w-8 h-8 rounded-full bg-[#F6F6F6] text-[#090909] flex items-center justify-center">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-medium text-[#090909]">
+                <h3 className="text-lg sm:text-xl font-medium text-[#090909]">
                   {item.title}
                 </h3>
               </div>
 
-              <p className="mt-8 text-sm text-[#737373] leading-relaxed">
+              <p className="mt-6 sm:mt-8 text-xs sm:text-sm text-[#737373] leading-relaxed">
                 {item.desc}
               </p>
             </div>

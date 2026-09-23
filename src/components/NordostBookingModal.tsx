@@ -26,23 +26,23 @@ export const NordostBookingModal = ({ isOpen, onClose }: NordostBookingModalProp
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-      <div className="relative w-full max-w-lg bg-[#090909] text-[#F6F6F6] rounded-2xl p-6 sm:p-8 border border-neutral-800">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+      <div className="relative w-full max-w-lg max-h-[88vh] overflow-y-auto overscroll-contain bg-[#090909] text-[#F6F6F6] rounded-2xl p-5 sm:p-8 border border-neutral-800 shadow-2xl">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 w-8 h-8 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center transition"
+          className="absolute top-5 right-5 sm:top-6 sm:right-6 w-9 h-9 rounded-full bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center transition cursor-pointer"
           aria-label="Close modal"
         >
           ✕
         </button>
 
-        <div className="space-y-6">
+        <div className="space-y-5 sm:space-y-6">
           <div>
             <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">
               Free 30-min call
             </span>
-            <h3 className="text-2xl font-medium tracking-tight text-white mt-1">
+            <h3 className="text-xl sm:text-2xl font-medium tracking-tight text-white mt-1">
               Book Discovery Call
             </h3>
             <p className="text-xs sm:text-sm text-neutral-400 mt-2">
@@ -59,7 +59,7 @@ export const NordostBookingModal = ({ isOpen, onClose }: NordostBookingModalProp
               <p className="text-xs text-neutral-400">We will reach out to you within 24 hours.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
               <div>
                 <label className="block text-xs font-mono text-neutral-400 mb-1">Your Name</label>
                 <input
@@ -68,7 +68,7 @@ export const NordostBookingModal = ({ isOpen, onClose }: NordostBookingModalProp
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Alex Miller"
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-white transition"
+                  className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-base sm:text-sm text-white focus:outline-none focus:border-white transition"
                 />
               </div>
 
@@ -80,7 +80,7 @@ export const NordostBookingModal = ({ isOpen, onClose }: NordostBookingModalProp
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="alex@startup.com"
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-white transition"
+                  className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-base sm:text-sm text-white focus:outline-none focus:border-white transition"
                 />
               </div>
 
@@ -91,7 +91,7 @@ export const NordostBookingModal = ({ isOpen, onClose }: NordostBookingModalProp
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   placeholder="startup.bio"
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-white transition"
+                  className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-base sm:text-sm text-white focus:outline-none focus:border-white transition"
                 />
               </div>
 
@@ -102,14 +102,14 @@ export const NordostBookingModal = ({ isOpen, onClose }: NordostBookingModalProp
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Seed round prep, visual rebrand, product launch..."
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-white transition resize-none"
+                  className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3.5 py-2.5 text-base sm:text-sm text-white focus:outline-none focus:border-white transition resize-none"
                 />
               </div>
 
-              <div className="pt-2 flex flex-col sm:flex-row gap-3">
+              <div className="pt-2 flex flex-col sm:flex-row gap-2.5 sm:gap-3">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto px-6 py-3 rounded-full bg-white text-black font-medium text-xs font-mono hover:opacity-90 transition flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3 rounded-full bg-white text-black font-medium text-xs font-mono hover:opacity-90 transition flex items-center justify-center gap-2 min-h-[44px] cursor-pointer"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                   <span>Confirm Discovery Call</span>
@@ -118,7 +118,7 @@ export const NordostBookingModal = ({ isOpen, onClose }: NordostBookingModalProp
                   href="https://cal.com/denise-hodl/lets-talk?utm_source=home&utm_content=modal"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-5 py-3 rounded-full bg-neutral-800 text-neutral-300 font-medium text-xs font-mono hover:text-white transition text-center"
+                  className="w-full sm:w-auto px-5 py-3 rounded-full bg-neutral-800 text-neutral-300 font-medium text-xs font-mono hover:text-white transition text-center flex items-center justify-center min-h-[44px]"
                 >
                   Direct Cal.com link ↗
                 </a>

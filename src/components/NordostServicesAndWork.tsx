@@ -106,13 +106,13 @@ export const NordostServicesAndWork = ({ onSelectProject }: NordostServicesAndWo
   ];
 
   return (
-    <div ref={containerRef} className="bg-[#090909] text-[#F6F6F6]">
+    <div ref={containerRef} data-bg="dark" className="bg-[#090909] text-[#F6F6F6]">
       {/* 1. How we can help / Services */}
-      <section className="py-20 md:py-28 border-b border-neutral-800">
+      <section id="services" className="py-16 sm:py-20 md:py-28 border-b border-neutral-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8">
             {/* Left Col: Eyebrow + Statement */}
-            <div ref={statementRef} className="lg:col-span-7 space-y-6">
+            <div ref={statementRef} className="lg:col-span-7 space-y-4 sm:space-y-6">
               <p className="font-mono text-xs uppercase tracking-widest text-[#888888]">
                 How we can help
               </p>
@@ -122,15 +122,15 @@ export const NordostServicesAndWork = ({ onSelectProject }: NordostServicesAndWo
             </div>
 
             {/* Right Col: Services List */}
-            <div className="lg:col-span-5 lg:pl-12 flex flex-col justify-end space-y-6">
+            <div className="lg:col-span-5 lg:pl-12 flex flex-col justify-end space-y-4 sm:space-y-6 pt-4 lg:pt-0">
               <p className="font-mono text-xs uppercase tracking-widest text-[#888888]">
                 Services
               </p>
-              <ul ref={servicesListRef} className="space-y-4">
+              <ul ref={servicesListRef} className="space-y-3 sm:space-y-4">
                 {services.map((service, idx) => (
                   <li
                     key={idx}
-                    className="text-lg sm:text-xl md:text-2xl font-normal text-[#D4D4D4] border-b border-neutral-800 pb-3 flex items-center justify-between group hover:text-white transition cursor-pointer"
+                    className="text-base sm:text-xl md:text-2xl font-normal text-[#D4D4D4] border-b border-neutral-800 pb-3 flex items-center justify-between group hover:text-white transition cursor-pointer min-h-[44px]"
                   >
                     <span>{service}</span>
                     <span className="text-xs font-mono text-neutral-500 group-hover:text-white transition">
@@ -145,7 +145,7 @@ export const NordostServicesAndWork = ({ onSelectProject }: NordostServicesAndWo
       </section>
 
       {/* 2. Recent Work Grid */}
-      <section className="py-20 md:py-28 border-b border-neutral-800">
+      <section id="work" className="py-16 sm:py-20 md:py-28 border-b border-neutral-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-12">
             <p className="font-mono text-xs uppercase tracking-widest text-[#888888]">
